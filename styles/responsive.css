@@ -106,14 +106,32 @@
 
     .mobile-menu-toggle {
         display: block;
+        background: none;
+        border: none;
+        font-size: var(--font-size-2xl);
+        color: var(--primary-green);
+        cursor: pointer;
+        padding: var(--space-xs);
+        border-radius: var(--border-radius);
+        transition: var(--transition-fast);
+    }
+
+    .mobile-menu-toggle:hover {
+        background: rgba(30, 77, 43, 0.1);
+        color: var(--primary-green);
+    }
+
+    .mobile-menu-toggle i {
+        display: block;
     }
 
     .header .container {
         padding: var(--space-xs) var(--space-sm);
+        min-height: 60px;
     }
 
-    .logo-text {
-        font-size: var(--font-size-lg);
+    .header-actions {
+        gap: var(--space-xs);
     }
 
     .logo img {
@@ -317,8 +335,13 @@
     }
 
     .whatsapp-btn {
-        padding: 6px var(--space-xs);
+        padding: 6px 10px;
         font-size: var(--font-size-xs);
+        font-weight: 600;
+    }
+
+    .whatsapp-btn i {
+        font-size: 14px;
     }
 }
 

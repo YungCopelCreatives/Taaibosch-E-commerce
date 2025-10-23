@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initNewsletterForm();
     initContactForm();
+    initBlogFiltering();
+    initFooterNewsletterForm();
     initSmoothScrolling();
     initLoadingAnimations();
     initWhatsAppIntegration();
@@ -815,22 +817,85 @@ function initWhatsAppIntegration() {
     });
 }
 
-// Search Functionality
-function initSearchFunctionality() {
-    // Add search functionality to search buttons/links
-    document.querySelectorAll('a[href*="search"], .search-bar-icon').forEach(element => {
-        element.addEventListener('click', function(e) {
-            e.preventDefault();
+// Blog Category Filtering
+function initBlogFiltering() {
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const blogCards = document.querySelectorAll('.blog-card');
 
-            // For now, show a placeholder
-            const searchQuery = prompt('What are you looking for?');
-            if (searchQuery) {
-                showNotification(`Searching for: ${searchQuery}`, 'info');
-                // Here you would implement actual search functionality
-                console.log(`Search query: ${searchQuery}`);
-            }
+    if (categoryFilters.length === 0 || blogCards.length === 0) {
+        return; // Not on blog page
+    }
+
+    categoryFilters.forEach(filter => {
+        filter.addEventListener('click', function() {
+            const category = this.dataset.category;
+
+            // Update active filter
+            categoryFilters.forEach(f => f.classList.remove('active'));
+            this.classList.add('active');
+
+            // Filter blog posts with animation
+            blogCards.forEach((card, index) => {
+                const cardCategories = card.dataset.category;
+
+                if (category === 'all' || cardCategories.includes(category)) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
         });
     });
+}
+
+// Footer Newsletter Form
+function initFooterNewsletterForm() {
+    const footerForm = document.getElementById('newsletter-form-footer');
+
+    if (footerForm) {
+        footerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const emailInput = this.querySelector('input[type="email"]');
+            const submitButton = this.querySelector('button');
+            const email = emailInput.value.trim();
+
+            // Basic email validation
+            if (!isValidEmail(email)) {
+                showNotification('Please enter a valid email address', 'error');
+                return;
+            }
+
+            // Show loading state
+            const originalContent = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            submitButton.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                // Show success message
+                submitButton.innerHTML = '<i class="fas fa-check"></i>';
+                submitButton.style.background = 'var(--success)';
+                showNotification('Thank you for subscribing to our blog updates!', 'success');
+
+                // Reset form after delay
+                setTimeout(() => {
+                    submitButton.innerHTML = originalContent;
+                    submitButton.style.background = '';
+                    submitButton.disabled = false;
+                    this.reset();
+                }, 2000);
+            }, 1000);
+        });
+    }
 }
 
 // Utility Functions
