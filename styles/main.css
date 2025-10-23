@@ -279,10 +279,9 @@ input, button, textarea, select {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, rgba(30, 77, 43, 0.9) 0%, rgba(167, 199, 160, 0.8) 100%), url('../assets/img/hero-bg.jpg');
+    background: var(--primary-green);
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     padding: var(--space-3xl) 0;
     position: relative;
     overflow: hidden;
@@ -295,10 +294,9 @@ input, button, textarea, select {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.1"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="%23ffffff" opacity="0.05"/></svg>');
     background-size: 50px 50px;
-    opacity: 0.3;
-    animation: float 20s ease-in-out infinite;
+    opacity: 0.1;
 }
 
 .hero .container {
@@ -542,9 +540,7 @@ input, button, textarea, select {
 /* CTA Section */
 .cta-section {
     padding: var(--space-3xl) 0;
-    background: linear-gradient(135deg, rgba(30, 77, 43, 0.9) 0%, rgba(167, 199, 160, 0.8) 100%), url('../assets/img/hero-bg-2.jpg');
-    background-size: cover;
-    background-position: center;
+    background: var(--primary-green);
     color: var(--white);
     text-align: center;
 }
@@ -786,9 +782,7 @@ input, button, textarea, select {
 
 /* Blog Specific Styles */
 .blog-hero {
-    background: linear-gradient(135deg, rgba(30, 77, 43, 0.9) 0%, rgba(167, 199, 160, 0.8) 100%), url('../assets/img/feature-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    background: var(--primary-green);
     color: var(--white);
     padding: var(--space-3xl) 0;
     text-align: center;
@@ -945,11 +939,6 @@ input, button, textarea, select {
 }
 
 /* Animations */
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(180deg); }
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
