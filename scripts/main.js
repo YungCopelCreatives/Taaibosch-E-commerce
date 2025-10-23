@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Core functionality
     initMobileMenu();
     initNewsletterForm();
+    initContactForm();
     initSmoothScrolling();
     initLoadingAnimations();
     initWhatsAppIntegration();
@@ -637,6 +638,79 @@ function initNewsletterForm() {
                     this.reset();
                 }, 2000);
             }, 1000);
+        });
+    }
+}
+
+// Contact Form Handler
+function initContactForm() {
+    const contactForm = document.getElementById('contact-form');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalContent = submitButton.innerHTML;
+
+            // Basic validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--danger)';
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+
+            if (!isValid) {
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            // Show loading state
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitButton.disabled = true;
+
+            // Simulate form submission
+            setTimeout(() => {
+                // Show success message
+                submitButton.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                submitButton.style.background = 'var(--success)';
+                showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
+
+                // Reset form after delay
+                setTimeout(() => {
+                    submitButton.innerHTML = originalContent;
+                    submitButton.style.background = '';
+                    submitButton.disabled = false;
+                    this.reset();
+
+                    // Clear validation styles
+                    requiredFields.forEach(field => {
+                        field.style.borderColor = '';
+                    });
+                }, 3000);
+            }, 1500);
+        });
+
+        // Real-time validation
+        this.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.style.borderColor = 'var(--danger)';
+                } else {
+                    this.style.borderColor = '';
+                }
+            });
+
+            field.addEventListener('input', function() {
+                this.style.borderColor = '';
+            });
         });
     }
 }
