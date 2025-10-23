@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+	<!-- title -->
+	<title>Cart</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
+<body>
+	
+	<!--PreLoader-->
+    <div class="loader">
+        <div class="loader-inner">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <!--PreLoader Ends-->
+	
+	<!-- Logo + Taaibosch header top -->
+<div style="text-align:center;padding:24px 0 10px 0;">
+  <img src="assets/img/logo.png" alt="Taaibosch Organics logo on Cart" style="height:80px;" onerror="this.alt='Logo placeholder';this.src='https://via.placeholder.com/140?text=LOGO';">
+  <h1 style="font-family:'Playfair Display',serif;color:#1E4D2B;">Your Taaibosch Organics Cart</h1>
+						</div>
+<!-- Table/list of products -->
+<!-- Example product row for each shop variant, R pricing, summary: -->
+<table class="cart-products" style="width:100%;margin-top:19px;font-size:1em;">
+<tr><th>Product</th><th>Variant/Flavor</th><th>Price (R)</th><th>Quantity</th><th>Total (R)</th></tr>
+<tr><td><img src="https://via.placeholder.com/42x42?text=Gel" alt="Sea Moss Gel Original" style="border-radius:4px;"> Sea Moss Gel</td><td>Original</td><td>220</td><td>1</td><td>220</td></tr>
+<tr><td><img src="https://via.placeholder.com/42x42?text=Gummies" alt="Gummies Strawberry" style="border-radius:4px;"> Sea Moss Gummies</td><td>Strawberry</td><td>180</td><td>2</td><td>360</td></tr>
+<tr><td><img src="https://via.placeholder.com/42x42?text=Raw" alt="Raw Sea Moss" style="border-radius:4px;"> Raw Sea Moss</td><td>N/A</td><td>99</td><td>1</td><td>99</td></tr>
+<!-- Add more rows for each variant in cart as needed -->
+</table>
+<!-- Cart summary & Powered by block -->
+<div class="cart-policy-info" style="background:#A7C7A0;color:#1E4D2B;padding:14px;margin-top:22px;border-radius:6px;font-size:1em;margin-bottom:12px;">
+  <b>Powered by Taaibosch Organics</b> &bull; 100% vegan, wildcrafted, Cape Town-based, delivered anywhere in SA.<br>
+  R pricing everywhere. Secure payments. All refunds/policies: <a href="delivery-policy.html">see here</a>.<br>
+  <b>Order Questions? WhatsApp +27 64 502 2066</b>
+	</div>
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<th class="product-total">Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="#" aria-label="Remove item"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt="Sea Moss Gel product image"></td>
+									<td class="product-name">Strawberry</td>
+									<td class="product-price">$85</td>
+									<td class="product-quantity"><input type="number" placeholder="0"></td>
+									<td class="product-total">1</td>
+								</tr>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="#" aria-label="Remove item"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt="Berry product image"></td>
+									<td class="product-name">Berry</td>
+									<td class="product-price">$70</td>
+									<td class="product-quantity"><input type="number" placeholder="0"></td>
+									<td class="product-total">1</td>
+								</tr>
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="#" aria-label="Remove item"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt="Lemon product image"></td>
+									<td class="product-name">Lemon</td>
+									<td class="product-price">$35</td>
+									<td class="product-quantity"><input type="number" placeholder="0"></td>
+									<td class="product-total">1</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-lg-4">
+					<div class="total-section">
+						<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Subtotal: </strong></td>
+									<td>$500</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Shipping: </strong></td>
+									<td>$45</td>
+								</tr>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td>$545</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="cart-buttons">
+							<a href="cart.html" class="boxed-btn" aria-label="Update Cart">Update Cart</a>
+							<a href="checkout.html" class="boxed-btn black" aria-label="Check Out">Check Out</a>
+						</div>
+					</div>
+
+					<div class="coupon-section">
+						<h3>Apply Coupon</h3>
+						<div class="coupon-form-wrap">
+							<form action="index.html">
+								<p><input type="text" placeholder="Coupon"></p>
+								<p><input type="submit" value="Apply" aria-label="Apply Coupon"></p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end cart -->
+
+	<!-- Add delivery/policy disclaimer where cart totals/summary is displayed. Example: -->
+<div class="cart-policy-info" style="background:#A7C7A0;color:#1E4D2B;padding:14px;border-radius:6px;font-size:1em;margin-bottom:18px;">
+  <b>Delivery by:</b> CourierGuy, AMX, or PAXI, depending on your address. <br>
+  <b>All prices in Rands (ZAR);</b> shipping calculated at checkout. <br>
+  <b>No Refunds or Returns:</b> Due to the nature of health products, all sales are final as per our <a href="delivery-policy.html">delivery policy</a>. Please check your details before confirming the order. <br>
+  <b>Order from Cape Town, delivered nationwide!</b>
+</div>
+<!-- Replace any $ with R for prices -->
+
+	<!-- logo carousel -->
+	<div class="logo-carousel-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="logo-carousel-inner">
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/1.png" alt="Cape Town company logo 1">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/2.png" alt="Company logo 2">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/3.png" alt="Company logo 3">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/4.png" alt="Company logo 4">
+						</div>
+						<div class="single-logo-item">
+							<img src="assets/img/company-logos/5.png" alt="Company logo 5">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end logo carousel -->
+
+	<!-- footer -->
+	<div class="footer-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box about-widget">
+						<h2 class="widget-title">About Taaibosch Organics</h2>
+						<p>Taaibosch Organics empowers wellness through South African botanicals and alkaline herbs. Pure, organic, and ethically sourced. Online only – no physical store.</p>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box get-in-touch">
+						<h2 class="widget-title">Get in Touch</h2>
+						<ul>
+							<li>Email: <a href="mailto:taaiboschorganics@gmail.com">taaiboschorganics@gmail.com</a></li>
+							<li>WhatsApp: <a href="https://wa.me/27645022066" target="_blank">+27 64 502 2066</a></li>
+							<li>Business Hours: Mon–Fri 9am–5pm (SAST)</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box pages">
+						<h2 class="widget-title">Quick Links</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="about.html">About</a></li>
+							<li><a href="shop.html">Shop</a></li>
+							<li><a href="blog.html">Blog</a></li>
+							<li><a href="delivery-policy.html">Delivery Policy</a></li>
+							<li><a href="contact.html">Contact</a></li>
+							<li><a href="#" title="Coming soon" aria-label="Privacy Policy (coming soon)">Privacy Policy</a></li>
+							<li><a href="#" title="Coming soon" aria-label="Terms &amp; Conditions (coming soon)">Terms &amp; Conditions</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-box subscribe">
+						<h2 class="widget-title">Subscribe</h2>
+						<p>Get wellness news and exclusive offers (unsubscribe anytime)</p>
+						<form id="newsletter-form" action="#" method="post" novalidate>
+							<input type="email" name="email" placeholder="Email" required>
+							<button type="submit" aria-label="Subscribe"><i class="fas fa-paper-plane"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-12">
+					<div class="footer-disclaimer" style="font-size: 0.95em; color: #eee; opacity:0.8; margin-top: 24px;">
+						<p>All information provided is for informational purposes only and is not intended as medical advice. No products are intended to diagnose, treat, cure, or prevent any disease. Always consult a healthcare professional for medical advice.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end footer -->
+	
+	<!-- copyright -->
+	<div class="copyright">
+		<div class="container text-center">
+			<p>© 2025 Taaibosch Organics. All rights reserved.</p>
+		</div>
+	</div>
+	<!-- end copyright -->
+	
+	<!-- jquery -->
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="assets/js/main.js"></script>
+
+</body>
+</html>

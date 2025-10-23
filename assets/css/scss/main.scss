@@ -1,0 +1,63 @@
+/*
+Template Name: Fruitkha - Responsive Bootstrap4 Shop Template
+Template URI: 
+Description: Bootstrap template for fruits or any other kind of shop
+Author: Imran Hossain
+Author URI: https://imransdesign.com/
+Version: 1.0
+*/
+
+// Base
+@import "base/variables";
+@import "base/mixins";
+@import "base/typography";
+
+
+// Common
+@import "common/common";
+@import "common/header";
+@import "common/footer";
+@import "common/hover";
+
+// Sections
+@import "sections/hero";
+@import "sections/list";
+@import "sections/news";
+@import "sections/cart-banner";
+@import "sections/testimonials";
+@import "sections/about";
+@import "sections/shop-banner";
+
+
+// Pages
+@import "pages/about";
+@import "pages/contact";
+@import "pages/shop";
+@import "pages/404";
+
+body {
+  background: $accent-bg;
+  color: $text-color;
+  font-family: 'Poppins', sans-serif;
+}
+h1, h2, h3, .widget-title {
+  font-family: 'Playfair Display', serif;
+  color: $primary-color;
+}
+button, .btn, .cart-btn {
+  background: $primary-color;
+  color: $accent-bg;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 6px;
+  border: none;
+  padding: 12px 28px;
+}
+.card, .policy-section, .footer-box {
+  background: $white-color;
+  color: $primary-color;
+  border-radius: 12px;
+}
+.shop-banner, .usp-section {
+  background: $secondary-color;
+  color: $primary-color;
+}
