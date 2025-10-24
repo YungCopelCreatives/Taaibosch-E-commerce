@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initProductInteractions();
     initSearchFunctionality();
     initFloatingWhatsApp();
+    initSmartOrderButtons();
 });
 
 // Mobile Menu Toggle
@@ -493,7 +494,7 @@ function showCartModal() {
                         </div>
                         <div class="cart-actions">
                             <button class="btn btn-outline" onclick="clearCart()">Clear Cart</button>
-                            <button class="btn btn-primary" onclick="cart.checkoutViaWhatsApp()">Order via WhatsApp</button>
+                            <button class="btn btn-primary" onclick="deliveryOptions.showDeliveryModal()">Choose Delivery & Order</button>
                         </div>
                     </div>
                 `}
@@ -783,6 +784,301 @@ function initLoadingAnimations() {
         observer.observe(el);
     });
 }
+
+// Smart Order Now Button Logic
+function initSmartOrderButtons() {
+    // Find all Order Now / Shop Now buttons
+    document.querySelectorAll('.whatsapp-btn, .btn[href*="wa.me"], a[href*="Order"], a[href*="Shop"]').forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Check if this is an order button (not just informational)
+            if (this.textContent.toLowerCase().includes('order') ||
+                this.textContent.toLowerCase().includes('shop') ||
+                this.href.includes('wa.me')) {
+
+                // Check if cart has items
+                if (cart.items.length > 0) {
+                    // Cart has items - go to cart/checkout
+                    e.preventDefault();
+                    showCartModal();
+                    return;
+                } else {
+                    // Cart is empty - go to shop
+                    e.preventDefault();
+                    window.location.href = 'shop.html';
+                    return;
+                }
+            }
+        });
+    });
+}
+
+// Delivery Calendar and Courier Selection
+let deliveryOptions = {
+    couriers: [
+        { id: 'courierguy', name: 'CourierGuy', cost: 95, days: '2-3' },
+        { id: 'amx', name: 'AMX', cost: 120, days: '1-2' },
+        { id: 'paxi', name: 'PAXI', cost: 85, days: '3-5' }
+    ],
+
+    selectedCourier: null,
+    selectedDate: null,
+
+    showDeliveryModal: function() {
+        const modal = document.createElement('div');
+        modal.className = 'delivery-modal';
+        modal.innerHTML = `
+            <div class="delivery-modal-content">
+                <div class="delivery-modal-header">
+                    <h3>Choose Delivery Options</h3>
+                    <button class="delivery-modal-close">&times;</button>
+                </div>
+                <div class="delivery-modal-body">
+                    <div class="courier-selection">
+                        <h4>Select Courier Service</h4>
+                        ${this.couriers.map(courier => `
+                            <div class="courier-option ${this.selectedCourier === courier.id ? 'selected' : ''}" data-courier="${courier.id}">
+                                <div class="courier-info">
+                                    <h5>${courier.name}</h5>
+                                    <p>Delivery: ${courier.days} business days</p>
+                                    <span class="courier-cost">R${courier.cost}</span>
+                                </div>
+                                <div class="courier-radio">
+                                    <input type="radio" name="courier" value="${courier.id}" ${this.selectedCourier === courier.id ? 'checked' : ''}>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="delivery-calendar">
+                        <h4>Select Delivery Date</h4>
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <button class="calendar-nav prev-month">&larr;</button>
+                                <h5 class="current-month">January 2025</h5>
+                                <button class="calendar-nav next-month">&rarr;</button>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="calendar-days">
+                                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                                </div>
+                                <div class="calendar-dates"></div>
+                            </div>
+                        </div>
+                        <p class="delivery-note">* Delivery available Monday to Friday, excluding public holidays</p>
+                    </div>
+
+                    <div class="delivery-summary">
+                        <div class="summary-item">
+                            <span>Subtotal:</span>
+                            <span>R${cart.total.toFixed(2)}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Delivery:</span>
+                            <span id="delivery-cost">R0.00</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total:</span>
+                            <span id="delivery-total">R${cart.total.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="delivery-modal-footer">
+                    <button class="btn btn-outline" onclick="closeDeliveryModal()">Cancel</button>
+                    <button class="btn btn-primary" id="confirm-delivery-btn" disabled>Confirm & Order</button>
+                </div>
+            </div>
+        `;
+
+        // Add modal styles
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        `;
+
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+
+        // Initialize calendar
+        this.initCalendar();
+
+        // Animate in
+        setTimeout(() => {
+            modal.style.opacity = '1';
+            modal.querySelector('.delivery-modal-content').style.transform = 'scale(1)';
+        }, 10);
+
+        // Close functionality
+        modal.querySelector('.delivery-modal-close').addEventListener('click', () => this.closeDeliveryModal());
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.closeDeliveryModal();
+            }
+        });
+
+        // Courier selection
+        modal.querySelectorAll('.courier-option').forEach(option => {
+            option.addEventListener('click', () => {
+                modal.querySelectorAll('.courier-option').forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                modal.querySelectorAll('input[name="courier"]').forEach(radio => radio.checked = false);
+                option.querySelector('input[name="courier"]').checked = true;
+                this.selectCourier(option.dataset.courier);
+            });
+        });
+
+        // Radio button selection
+        modal.querySelectorAll('input[name="courier"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                this.selectCourier(radio.value);
+            });
+        });
+
+        // Confirm button
+        modal.querySelector('#confirm-delivery-btn').addEventListener('click', () => {
+            if (this.selectedCourier && this.selectedDate) {
+                this.confirmDelivery();
+            }
+        });
+
+        return modal;
+    },
+
+    initCalendar: function() {
+        const calendarDates = document.querySelector('.calendar-dates');
+        const currentMonth = document.querySelector('.current-month');
+        const prevBtn = document.querySelector('.prev-month');
+        const nextBtn = document.querySelector('.next-month');
+
+        let currentDate = new Date();
+        let selectedDate = new Date();
+
+        function renderCalendar(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDayOfWeek = firstDay.getDay();
+
+            currentMonth.textContent = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            calendarDates.innerHTML = '';
+
+            // Add empty cells for days before month starts
+            for (let i = 0; i < startingDayOfWeek; i++) {
+                calendarDates.appendChild(document.createElement('div'));
+            }
+
+            // Add days of month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateElement = document.createElement('div');
+                dateElement.className = 'calendar-date';
+                dateElement.textContent = day;
+
+                const fullDate = new Date(year, month, day);
+
+                // Disable past dates and weekends
+                if (fullDate < new Date().setHours(0, 0, 0, 0) || fullDate.getDay() === 0 || fullDate.getDay() === 6) {
+                    dateElement.classList.add('disabled');
+                } else {
+                    dateElement.classList.add('available');
+                    dateElement.addEventListener('click', () => {
+                        document.querySelectorAll('.calendar-date').forEach(d => d.classList.remove('selected'));
+                        dateElement.classList.add('selected');
+                        deliveryOptions.selectDate(fullDate);
+                    });
+                }
+
+                calendarDates.appendChild(dateElement);
+            }
+        }
+
+        renderCalendar(currentDate);
+
+        prevBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar(currentDate);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar(currentDate);
+        });
+    },
+
+    selectCourier: function(courierId) {
+        this.selectedCourier = courierId;
+        const courier = this.couriers.find(c => c.id === courierId);
+        document.getElementById('delivery-cost').textContent = `R${courier.cost}`;
+        document.getElementById('delivery-total').textContent = `R${(cart.total + courier.cost).toFixed(2)}`;
+        this.updateConfirmButton();
+    },
+
+    selectDate: function(date) {
+        this.selectedDate = date;
+        this.updateConfirmButton();
+    },
+
+    updateConfirmButton: function() {
+        const confirmBtn = document.getElementById('confirm-delivery-btn');
+        if (confirmBtn) {
+            confirmBtn.disabled = !(this.selectedCourier && this.selectedDate);
+        }
+    },
+
+    confirmDelivery: function() {
+        const courier = this.couriers.find(c => c.id === this.selectedCourier);
+        const message = `🌿 *Taaibosch Organics Order*\n\n` +
+                       `*Delivery Details:*\n` +
+                       `📦 Courier: ${courier.name} (${courier.days} days)\n` +
+                       `📅 Delivery Date: ${this.selectedDate.toLocaleDateString()}\n` +
+                       `💰 Delivery Cost: R${courier.cost}\n\n` +
+                       `*Order Details:*\n` +
+                       cart.items.map((item, index) =>
+                           `${index + 1}. ${item.name}\n` +
+                           `   Quantity: ${item.quantity}\n` +
+                           `   Price: R${item.price}\n` +
+                           `   Subtotal: R${(item.price * item.quantity).toFixed(2)}\n`
+                       ).join('\n') +
+                       `\n*Total: R${(cart.total + courier.cost).toFixed(2)}*\n\n` +
+                       `Please confirm this order and delivery details.\nThank you! 💚`;
+
+        const whatsappUrl = `https://wa.me/27645022066?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+
+        this.closeDeliveryModal();
+
+        // Track conversion
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'delivery_checkout', {
+                'event_category': 'ecommerce',
+                'event_label': courier.name,
+                'value': cart.total + courier.cost
+            });
+        }
+    },
+
+    closeDeliveryModal: function() {
+        const modal = document.querySelector('.delivery-modal');
+        if (modal) {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 300);
+        }
+    }
+};
 
 // Enhanced WhatsApp Integration
 function initWhatsAppIntegration() {
@@ -1231,6 +1527,257 @@ style.textContent = `
         transform: translateZ(0);
         will-change: transform;
     }
-`;
+
+    /* Delivery Modal Styles */
+    .delivery-modal-content {
+        background: var(--white);
+        border-radius: var(--border-radius-lg);
+        max-width: 700px;
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+        padding: 0;
+    }
+
+    .delivery-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-lg);
+        border-bottom: 1px solid #eee;
+        background: var(--primary-green);
+        color: var(--white);
+        border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+    }
+
+    .delivery-modal-header h3 {
+        margin: 0;
+        font-family: var(--font-heading);
+    }
+
+    .delivery-modal-close {
+        background: none;
+        border: none;
+        font-size: var(--font-size-2xl);
+        cursor: pointer;
+        color: var(--white);
+        padding: var(--space-xs);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .delivery-modal-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .delivery-modal-body {
+        padding: var(--space-xl);
+    }
+
+    .courier-selection, .delivery-calendar {
+        margin-bottom: var(--space-xl);
+    }
+
+    .courier-selection h4, .delivery-calendar h4 {
+        font-family: var(--font-heading);
+        color: var(--primary-green);
+        margin-bottom: var(--space-md);
+        font-size: var(--font-size-lg);
+    }
+
+    .courier-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-md);
+        border: 2px solid #eee;
+        border-radius: var(--border-radius);
+        margin-bottom: var(--space-sm);
+        cursor: pointer;
+        transition: var(--transition-fast);
+    }
+
+    .courier-option:hover, .courier-option.selected {
+        border-color: var(--primary-green);
+        background: rgba(30, 77, 43, 0.05);
+    }
+
+    .courier-info h5 {
+        margin: 0 0 var(--space-xs) 0;
+        color: var(--primary-green);
+        font-weight: 600;
+    }
+
+    .courier-info p {
+        margin: 0 0 var(--space-xs) 0;
+        color: var(--text-light);
+        font-size: var(--font-size-sm);
+    }
+
+    .courier-cost {
+        font-weight: 700;
+        color: var(--primary-green);
+        font-size: var(--font-size-lg);
+    }
+
+    .courier-radio {
+        display: flex;
+        align-items: center;
+    }
+
+    .calendar-container {
+        border: 1px solid #eee;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-md);
+        background: var(--background-light);
+    }
+
+    .calendar-nav {
+        background: none;
+        border: none;
+        font-size: var(--font-size-lg);
+        cursor: pointer;
+        color: var(--primary-green);
+        padding: var(--space-xs);
+        border-radius: var(--border-radius);
+    }
+
+    .calendar-nav:hover {
+        background: var(--secondary-green);
+    }
+
+    .current-month {
+        margin: 0;
+        font-weight: 600;
+        color: var(--primary-green);
+    }
+
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+        background: #eee;
+    }
+
+    .calendar-days, .calendar-dates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 1px;
+    }
+
+    .calendar-days span {
+        padding: var(--space-sm);
+        text-align: center;
+        font-weight: 600;
+        font-size: var(--font-size-sm);
+        background: var(--white);
+        color: var(--text-light);
+    }
+
+    .calendar-date {
+        padding: var(--space-sm);
+        text-align: center;
+        background: var(--white);
+        cursor: pointer;
+        transition: var(--transition-fast);
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .calendar-date.available:hover {
+        background: var(--secondary-green);
+        color: var(--primary-green);
+    }
+
+    .calendar-date.selected {
+        background: var(--primary-green);
+        color: var(--white);
+    }
+
+    .calendar-date.disabled {
+        background: #f5f5f5;
+        color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .delivery-note {
+        font-size: var(--font-size-sm);
+        color: var(--text-light);
+        margin-top: var(--space-sm);
+        font-style: italic;
+    }
+
+    .delivery-summary {
+        background: var(--background-light);
+        padding: var(--space-lg);
+        border-radius: var(--border-radius);
+    }
+
+    .summary-item {
+        display: flex;
+        justify-content: space-between;
+        padding: var(--space-xs) 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .summary-item.total {
+        border-bottom: none;
+        font-weight: 700;
+        font-size: var(--font-size-lg);
+        color: var(--primary-green);
+        border-top: 2px solid var(--primary-green);
+        margin-top: var(--space-sm);
+        padding-top: var(--space-sm);
+    }
+
+    .delivery-modal-footer {
+        display: flex;
+        gap: var(--space-md);
+        justify-content: flex-end;
+        padding: var(--space-lg);
+        border-top: 1px solid #eee;
+        background: var(--background-light);
+        border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+    }
+
+    @media (max-width: 768px) {
+        .delivery-modal-content {
+            width: 98%;
+            margin: var(--space-md);
+        }
+
+        .courier-option {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+
+        .courier-radio {
+            align-self: flex-end;
+        }
+
+        .delivery-modal-footer {
+            flex-direction: column-reverse;
+        }
+
+        .delivery-modal-footer button {
+            width: 100%;
+        }
+    }`;
 
 document.head.appendChild(style);
