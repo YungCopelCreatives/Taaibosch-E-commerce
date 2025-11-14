@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
     initStickyNavbar();
     initParallaxEffects();
     initHoverEffects();
-    initSkeletonLoaders();
 
     // E-commerce functionality
     initShoppingCart();
@@ -25,63 +24,57 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmartOrderButtons();
 });
 
-// Mobile Menu Toggle
+// Enhanced Mobile Menu Toggle
 function initMobileMenu() {
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const nav = document.querySelector('.nav');
+    const body = document.body;
 
-    if (mobileMenuToggle && navLinks) {
+    if (mobileMenuToggle && nav) {
         mobileMenuToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            const icon = this.querySelector('i');
-
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-                this.setAttribute('aria-expanded', 'true');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-                this.setAttribute('aria-expanded', 'false');
-            }
+            nav.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+            mobileMenuToggle.setAttribute('aria-expanded', nav.classList.contains('active'));
         });
 
         // Close mobile menu when clicking on nav links
-        navLinks.addEventListener('click', function(e) {
-            if (e.target.tagName === 'A') {
-                navLinks.classList.remove('active');
-                mobileMenuToggle.querySelector('i').classList.remove('fa-times');
-                mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+        const navLinks = nav.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                nav.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!nav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                nav.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                body.style.overflow = '';
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
             }
         });
     }
 }
 
-// Sticky Navbar with Scroll Effect
+// Enhanced Sticky Navbar with Scroll Effect
 function initStickyNavbar() {
     const header = document.querySelector('.header');
-    let lastScrollTop = 0;
 
     if (header) {
         window.addEventListener('scroll', throttle(() => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            // Add/remove sticky class
+            // Add/remove scrolled class for enhanced styling
             if (scrollTop > 100) {
-                header.classList.add('sticky-active');
+                header.classList.add('scrolled');
             } else {
-                header.classList.remove('sticky-active');
+                header.classList.remove('scrolled');
             }
-
-            // Shrink effect
-            if (scrollTop > 200) {
-                header.classList.add('navbar-shrink');
-            } else {
-                header.classList.remove('navbar-shrink');
-            }
-
-            lastScrollTop = scrollTop;
         }, 16));
     }
 }
@@ -397,6 +390,99 @@ function initProductInteractions() {
     }
 }
 
+// Product search & filtering
+function initSearchFunctionality() {
+    const searchInputs = document.querySelectorAll('[data-filter="products"]');
+    const filterButtons = document.querySelectorAll('[data-filter-pill]');
+    const productCards = Array.from(document.querySelectorAll('[data-product-card]'));
+    const feedbackElement = document.querySelector('[data-filter-feedback]');
+    const emptyState = document.querySelector('[data-filter-empty]');
+
+    if (productCards.length === 0) {
+        return;
+    }
+
+    let activeFilter = 'all';
+    let currentQuery = '';
+
+    const normalise = (value) => value.toLowerCase().trim();
+
+    const syncInputs = (origin) => {
+        searchInputs.forEach(input => {
+            if (input !== origin) {
+                input.value = origin.value;
+            }
+        });
+    };
+
+    const updateFeedback = (visibleCount) => {
+        if (!feedbackElement) {
+            return;
+        }
+
+        if (visibleCount === 0) {
+            feedbackElement.textContent = 'No matching products. Try a different search or filter.';
+            return;
+        }
+
+        if (visibleCount === productCards.length) {
+            feedbackElement.textContent = `Showing all ${productCards.length} products`;
+            return;
+        }
+
+        feedbackElement.textContent = `Showing ${visibleCount} of ${productCards.length} products`;
+    };
+
+    const filterProducts = () => {
+        let visibleCount = 0;
+
+        productCards.forEach(card => {
+            const name = normalise(card.dataset.productName || '');
+            const tags = (card.dataset.productTags || '').split(',').map(tag => normalise(tag));
+
+            const matchesQuery = !currentQuery || name.includes(currentQuery) || tags.some(tag => tag.includes(currentQuery));
+            const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+
+            if (matchesQuery && matchesFilter) {
+                card.style.display = '';
+                card.classList.remove('is-filtered-out');
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+                card.classList.add('is-filtered-out');
+            }
+        });
+
+        if (emptyState) {
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        updateFeedback(visibleCount);
+    };
+
+    const debouncedFilterProducts = debounce(filterProducts, 150);
+
+    searchInputs.forEach(input => {
+        input.addEventListener('input', () => {
+            currentQuery = normalise(input.value);
+            syncInputs(input);
+            debouncedFilterProducts();
+        });
+    });
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            activeFilter = normalise(button.dataset.filterPill || 'all');
+            filterProducts();
+        });
+    });
+
+    // Run once on load to set initial state
+    filterProducts();
+}
+
 // Get product data from card
 function getProductData(productCard) {
     const name = productCard.querySelector('.product-name, .category-card h3')?.textContent || 'Product';
@@ -465,7 +551,7 @@ function showCartModal() {
                     <div class="empty-cart">
                         <i class="fas fa-shopping-cart"></i>
                         <p>Your cart is empty</p>
-                        <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                        <a href="/shop/" class="btn btn-primary">Continue Shopping</a>
                     </div>
                 ` : `
                     <div class="cart-items">
@@ -547,7 +633,7 @@ function showCartModal() {
                     <div class="empty-cart">
                         <i class="fas fa-shopping-cart"></i>
                         <p>Your cart is empty</p>
-                        <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                        <a href="/shop/" class="btn btn-primary">Continue Shopping</a>
                     </div>
                 `;
             }
@@ -804,7 +890,7 @@ function initSmartOrderButtons() {
                 } else {
                     // Cart is empty - go to shop
                     e.preventDefault();
-                    window.location.href = 'shop.html';
+                    window.location.href = '/shop/';
                     return;
                 }
             }
@@ -1781,3 +1867,61 @@ style.textContent = `
     }`;
 
 document.head.appendChild(style);
+
+// Slide-out Cart Drawer UX
+const cartDrawer = document.createElement('div');
+cartDrawer.id = 'cartDrawer';
+cartDrawer.style.cssText = `position:fixed;top:0;right:-420px;width:380px;max-width:90vw;height:100vh;background:#fff;box-shadow:-8px 0 32px rgba(32,139,58,0.08);z-index:1500;transition:right 0.32s;overflow-y:auto;padding-bottom:48px;`;
+document.body.appendChild(cartDrawer);
+
+let taaiboschCart = JSON.parse(localStorage.getItem('taaiboschCart')) || [];
+
+function openCartDrawer() {
+  cartDrawer.style.right = '0';
+  renderCartDrawer();
+}
+function closeCartDrawer() {
+  cartDrawer.style.right = '-420px';
+}
+function renderCartDrawer() {
+  let html = `<div style='background:#1E4D2B;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;'>
+    <h2 style='font-size:22px;margin:0;'>Your Cart</h2>
+    <button onclick='closeCartDrawer()' style='font-size:28px;background:none;border:none;color:#fff;cursor:pointer;'>&times;</button>
+  </div><div style='padding:20px;'>`;
+  if(!taaiboschCart.length){
+    html += `<div style='text-align:center;opacity:0.7;padding:60px 20px;'><i class='fas fa-shopping-cart' style='font-size:68px;margin-bottom:16px;color:#208b3a;'></i><h3>Your cart is empty</h3><p>Add some wellness to your life!</p></div>`;
+  } else {
+    taaiboschCart.forEach((item,i)=>{
+      html += `<div style='display:flex;align-items:center;gap:15px;padding:12px 0;border-bottom:1px solid #eff2ef;'><img src='${item.img||"assets/img/logo.png"}' alt='' style='width:64px;height:64px;border-radius:9px;background:#e8f5e8;object-fit:cover;'><div style='flex:1;'><h4 style='margin:0 0 2px 0;color:#1E4D2B;font-size:16px;'>${item.name}</h4><div style='font-size:14px;opacity:0.6;'>R${item.price||"??"}</div></div><button onclick='removeCartItem(${i})' style='color:#fff;background:#418C40;border:none;font-size:18px;border-radius:50%;width:28px;height:28px;line-height:24px;'>–</button></div>`;
+    });
+    html += `<div style='margin:22px 0 12px;font-size:20px;font-weight:700;color:#1E4D2B;display:flex;justify-content:space-between;'><span>Total:</span><span>R${taaiboschCart.reduce((t,it)=>t+Number(it.price||0),0)}</span></div>`;
+    html += `<button onclick='checkoutViaWhatsapp()' style='width:100%;background:#208b3a;color:#fff;border:none;padding:18px 0;font-size:17px;font-weight:700;border-radius:9px;display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:8px;'><i class='fab fa-whatsapp' style='font-size:1.6em;'></i>Checkout via WhatsApp</button>`;
+  }
+  html += `</div>`;
+  cartDrawer.innerHTML = html;
+  document.getElementById('cartDrawer').onclick = e => { if(e.target===cartDrawer) closeCartDrawer(); };
+}
+window.openCartDrawer=openCartDrawer;
+window.closeCartDrawer=closeCartDrawer;
+window.removeCartItem=function(idx){ taaiboschCart.splice(idx,1); localStorage.setItem('taaiboschCart',JSON.stringify(taaiboschCart)); renderCartDrawer(); updateCartCount(); };
+window.checkoutViaWhatsapp=function(){
+  let lines = taaiboschCart.map(it=>`${it.name} x1 (R${it.price})`);
+  let total = taaiboschCart.reduce((t,it)=>t+Number(it.price||0),0);
+  let url = 'https://wa.me/27645022066?text=' + encodeURIComponent(`Hi! I'd like to order:\n${lines.join("\n")}\nTotal: R${total}`);
+  window.open(url,'_blank');
+};
+
+function updateCartCount(){
+  var badge=document.querySelector('.cart-count');
+  if(badge){
+    badge.style.display=taaiboschCart.length?'block':'none';
+    badge.textContent=taaiboschCart.length;
+  }
+}
+window.addToCart=function(product){
+  taaiboschCart.push(product);
+  localStorage.setItem('taaiboschCart',JSON.stringify(taaiboschCart));
+  updateCartCount();
+};
+updateCartCount();
+document.querySelector('.cart-icon-wrapper').onclick=openCartDrawer;

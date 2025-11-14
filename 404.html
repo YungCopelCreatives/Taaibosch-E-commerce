@@ -27,9 +27,9 @@
 	<!-- mean menu css -->
 	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
 	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="styles/main.css">
 	<!-- responsive -->
-	<link rel="stylesheet" href="assets/css/responsive.css">
+	<link rel="stylesheet" href="styles/responsive.css">
 
 </head>
 <body>
@@ -59,10 +59,10 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Home</a>
+								<li class="current-list-item"><a href="index.html">Home</a>
 									<ul class="sub-menu">
-										<li><a href="index.html">Static Home</a></li>
-										<li><a href="index_2.html">Slider Home</a></li>
+										<li><a href="index.html">Home</a></li>
+										<li><a href="index_2.html">Home (Slider)</a></li>
 									</ul>
 								</li>
 								<li><a href="about.html">About</a></li>
@@ -94,13 +94,13 @@
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<a class="shopping-cart" href="cart.html" aria-label="Shopping cart"><i class="fas fa-shopping-cart"></i></a>
+										<a class="mobile-hide search-bar-icon" href="#" aria-label="Search"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
 							</ul>
 						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+						<a class="mobile-show search-bar-icon" href="#" aria-label="Search"><i class="fas fa-search"></i></a>
 						<div class="mobile-menu"></div>
 						<!-- menu end -->
 					</div>
@@ -208,7 +208,7 @@
 						<h2 class="widget-title">Get in Touch</h2>
 						<ul>
             <li>Email: <a href="mailto:taaiboschorganics@gmail.com">taaiboschorganics@gmail.com</a></li>
-            <li>WhatsApp: <a href="https://wa.me/27645022066" target="_blank">+27 64 502 2066</a></li>
+            <li>WhatsApp: <a href="https://wa.me/27645022066" target="_blank" rel="noopener noreferrer">+27 64 502 2066</a></li>
             <li>Business Hours: Mon–Fri 9am–5pm (SAST)</li>
 						</ul>
 					</div>
@@ -234,7 +234,7 @@
           <p>Get wellness news and exclusive offers (unsubscribe anytime)</p>
           <form id="newsletter-form" action="#" method="post" novalidate>
             <input type="email" name="email" placeholder="Email" required>
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
+							<button type="submit" aria-label="Subscribe to newsletter"><i class="fas fa-paper-plane"></i></button>
 						</form>
 					</div>
 				</div>
