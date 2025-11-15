@@ -1,7 +1,7 @@
 // modules/products/bestsellers.js
 
-const PRODUCTS_URL = '/data/products.json';
-const CARD_TEMPLATE_URL = '/modules/products/product-card.html';
+const PRODUCTS_URL = 'data/products.json';
+const CARD_TEMPLATE_URL = 'modules/products/product-card.html';
 
 async function initBestsellers() {
   const section = document.getElementById('bestsellers');

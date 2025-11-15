@@ -1,6 +1,6 @@
 // modules/testimonials/testimonials.js
 
-const TESTIMONIALS_URL = '/data/testimonials.json';
+const TESTIMONIALS_URL = 'data/testimonials.json';
 
 async function initTestimonials() {
   const section = document.getElementById('testimonials');

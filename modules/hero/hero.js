@@ -1,6 +1,6 @@
 // modules/hero/hero.js
 
-const PRODUCTS_URL = '/data/products.json';
+const PRODUCTS_URL = 'data/products.json';
 
 async function initHero() {
   const heroSection = document.getElementById('hero');

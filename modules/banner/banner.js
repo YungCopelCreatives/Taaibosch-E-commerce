@@ -18,7 +18,7 @@ function initBanner() {
   if (!bannerContainer) return;
 
   // Load banner HTML
-  fetch('/modules/banner/banner.html')
+  fetch('modules/banner/banner.html')
     .then(r => r.text())
     .then(html => {
       bannerContainer.innerHTML = html;

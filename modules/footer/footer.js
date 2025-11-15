@@ -1,6 +1,6 @@
 // modules/footer/footer.js
 
-const FOOTER_PATH = "/modules/footer/footer.html";
+const FOOTER_PATH = "modules/footer/footer.html";
 
 async function injectFooter() {
   const footer = document.getElementById('site-footer');
@@ -12,7 +12,7 @@ async function injectFooter() {
   if (!document.getElementById('whatsapp-float-btn')) {
     const script = document.createElement('script');
     script.type = 'module';
-    script.src = '/modules/whatsapp-float/whatsapp-float.js';
+    script.src = 'modules/whatsapp-float/whatsapp-float.js';
     document.body.appendChild(script);
   }
 }

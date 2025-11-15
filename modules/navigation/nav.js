@@ -1,6 +1,6 @@
 // modules/navigation/nav.js
 
-const NAV_HEADER_PATH = "/modules/navigation/header.html";
+const NAV_HEADER_PATH = "modules/navigation/header.html";
 
 async function injectHeader() {
   const header = document.getElementById('site-header');
