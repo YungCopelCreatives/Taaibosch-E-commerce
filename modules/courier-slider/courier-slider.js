@@ -1,11 +1,11 @@
 // modules/courier-slider/courier-slider.js
 
 const LOGO_IMAGES = [
-  '/assets/img/company-logos/1.png',
-  '/assets/img/company-logos/2.png',
-  '/assets/img/company-logos/3.png',
-  '/assets/img/company-logos/4.png',
-  '/assets/img/company-logos/5.png'
+  'assets/img/company-logos/1.png',
+  'assets/img/company-logos/2.png',
+  'assets/img/company-logos/3.png',
+  'assets/img/company-logos/4.png',
+  'assets/img/company-logos/5.png'
 ];
 
 async function initCourierSlider() {
@@ -14,7 +14,7 @@ async function initCourierSlider() {
 
   // Load slider HTML
   try {
-    const html = await fetch('/modules/courier-slider/courier-slider.html').then(r => r.text());
+    const html = await fetch('modules/courier-slider/courier-slider.html').then(r => r.text());
     section.innerHTML = html;
     
     const sliderTrack = document.getElementById('courier-slider-track');
