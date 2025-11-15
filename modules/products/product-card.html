@@ -1,0 +1,20 @@
+<div class="product-card bg-white rounded-xl shadow hover:shadow-lg transition flex flex-col" tabindex="0" aria-label="Product card">
+  <div class="relative">
+    <img class="h-48 w-full object-cover rounded-t-xl" src="{{image}}" alt="{{title}} product image" loading="lazy">
+    {{#if badge}}
+      <span class="absolute top-2 left-2 bg-primary text-white rounded-full px-3 py-1 text-xs font-semibold">{{badge}}</span>
+    {{/if}}
+    <span aria-hidden="true" class="absolute top-2 right-2 text-xs bg-green-200 text-green-800 rounded px-2 py-0.5 font-semibold">{{availability}}</span>
+  </div>
+  <div class="p-4 flex-1 flex flex-col">
+    <h3 class="text-lg font-semibold mb-2">{{title}}</h3>
+    <div class="text-primary font-bold mb-2">R{{price}} <span class="text-xs text-gray-500">{{size}}</span></div>
+    <ul class="mb-2 text-sm text-gray-600 list-disc list-inside">
+      {{#benefits}}
+        <li>{{.}}</li>
+      {{/benefits}}
+    </ul>
+    <a href="/shop/product-{{slug}}.html" class="mt-auto block text-center py-2 px-4 rounded bg-primary text-white font-semibold hover:bg-green-900 transition">View Product</a>
+    <button class="add-to-cart-btn mt-2 w-full py-2 border-2 border-primary text-primary font-bold rounded hover:bg-primary hover:text-white transition">Add to Cart</button>
+  </div>
+</div>

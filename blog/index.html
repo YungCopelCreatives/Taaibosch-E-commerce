@@ -1,3 +1,58 @@
-<div class="hero-image">
-    <img src="assets/img/Untitled1.png" alt="Taaibosch Organics Hero Image" class="main-hero-img">
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Alkaline Living & Wellness | Taaibosch Organics</title>
+  <meta name="description" content="Wellness, clear skin, weight loss, energy, longevity—learn the benefits of Taaibosch Organics alkaline products on our blog.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Blog | Taaibosch Organics">
+  <meta property="og:description" content="Explore how sea moss, burdock, soursop, and alkaline living products support wellness, beauty, and longevity.">
+  <meta property="og:url" content="https://taaiboschorganics.co.za/blog/">
+  <meta property="og:image" content="/assets/images/og-image.jpg">
+  <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#176c3a',
+            accent: '#f2c230'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #176c3a;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 min-h-screen font-sans">
+  <a href="#main-content" class="skip-link absolute top-0 left-0 bg-primary text-white p-2 z-50 focus:block">Skip to content</a>
+  <header id="site-header"></header>
+  <main id="main-content" class="py-10">
+    <section class="max-w-3xl mx-auto w-full px-4">
+      <h1 class="text-3xl md:text-4xl font-bold mb-8">Alkaline Living & Wellness Blog</h1>
+      <div id="blog-list" class="space-y-10"></div>
+    </section>
+  </main>
+  <footer id="site-footer" class="mt-20"></footer>
+  <script type="module" src="/modules/navigation/nav.js"></script>
+  <script type="module" src="/modules/footer/footer.js"></script>
+  <script type="module" src="/modules/content/blog-index.js"></script>
+</body>
+</html>

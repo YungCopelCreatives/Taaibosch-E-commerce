@@ -1,282 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
-
-	<!-- title -->
-	<title>404!</title>
-
-	<!-- favicon -->
-	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-	<!-- fontawesome -->
-	<link rel="stylesheet" href="assets/css/all.min.css">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-	<!-- owl carousel -->
-	<link rel="stylesheet" href="assets/css/owl.carousel.css">
-	<!-- magnific popup -->
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<!-- animate css -->
-	<link rel="stylesheet" href="assets/css/animate.css">
-	<!-- mean menu css -->
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-	<!-- main style -->
-	<link rel="stylesheet" href="styles/main.css">
-	<!-- responsive -->
-	<link rel="stylesheet" href="styles/responsive.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | Taaibosch Organics</title>
+  <meta name="description" content="Sorry, this page doesn't exist. Taaibosch Organics offers alkaline health through vegan capsules, teas, and more.">
+  <link rel="icon" type="image/png" href="/assets/icons/favicon.png" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#176c3a',
+            accent: '#f2c230'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: #176c3a;
+      color: white;
+      padding: 8px;
+      z-index: 100;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+  </style>
 </head>
-<body>
-	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
+<body class="bg-white text-center flex flex-col items-center justify-center min-h-screen font-sans">
+  <header id="site-header"></header>
+  <main class="flex flex-col items-center mt-20" id="main-content">
+    <h1 class="text-5xl font-bold text-primary-600 mb-6">404</h1>
+    <p class="text-lg mb-8">Sorry, the page you’re looking for can’t be found.</p>
+    <a href="/index.html" class="px-8 py-3 bg-primary text-white font-bold rounded shadow hover:bg-primary-700 transition">Back to home</a>
+    <div class="mt-12">
+      <img src="/assets/img/logo.png" alt="Taaibosch Organics Logo" class="mx-auto h-20 w-auto" loading="lazy">
     </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/logo.png" alt="Taaibosch Organics logo">
-							</a>
-						</div>
-						<!-- logo -->
-
-						<!-- menu start -->
-						<nav class="main-menu">
-							<ul>
-								<li class="current-list-item"><a href="index.html">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.html">Home</a></li>
-										<li><a href="index_2.html">Home (Slider)</a></li>
-									</ul>
-								</li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
-									</ul>
-								</li>
-								<li><a href="news.html">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-								<li><a href="shop.html">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li>
-									</ul>
-								</li>
-								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html" aria-label="Shopping cart"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#" aria-label="Search"><i class="fas fa-search"></i></a>
-									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#" aria-label="Search"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
-
-		<!-- search area -->
-		<div class="search-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<span class="close-btn"><i class="fas fa-window-close"></i></span>
-						<div class="search-bar">
-							<div class="search-bar-tablecell">
-								<h3>Search For:</h3>
-								<input type="text" placeholder="Keywords">
-								<button type="submit">Search <i class="fas fa-search"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end search arewa -->
-		<!-- breadcrumb-section -->
-		<div class="breadcrumb-section breadcrumb-bg">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8 offset-lg-2 text-center">
-						<div class="breadcrumb-text">
-							<p>Fresh adn Organic</p>
-							<h1>404 - Not Found</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end breadcrumb section -->
-		<!-- error section -->
-		<div class="full-height-section error-section">
-			<div class="full-height-tablecell">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-8 offset-lg-2 text-center">
-							<!-- Taaibosch Organics 404 branded -->
-<div style="text-align:center;padding:40px 10px 12px 10px;">
-  <img src="assets/img/logo.png" alt="Taaibosch Organics logo - 404" style="height:78px;" onerror="this.alt='Logo placeholder';this.src='https://via.placeholder.com/140?text=LOGO';">
-  <h1 style="font-family:'Playfair Display',serif;color:#1E4D2B;font-size:2.4em;">Sorry, Page Not Found</h1>
-  <p style="color:#344F40;font-size:1.07em;max-width:500px;margin:auto;">Whoops! That link doesn’t work, but Taaibosch Organics delivers wellness everywhere in South Africa.<br>Browse our <a href="shop.html">Shop</a> (from R99), read <a href="news.html">Health Blog</a>, or <a href="about.html">About Us</a>.</p>
-  <div style="margin:26px auto 11px auto;background:#A7C7A0;color:#1E4D2B;max-width:330px;padding:19px;border-radius:9px;">
-    Need help? WhatsApp us any day: <b>+27 64 502 2066</b> or <a href="mailto:taaiboschorganics@gmail.com">taaiboschorganics@gmail.com</a><br>Follow: <a href="https://www.instagram.com/taaiboschorganics">Instagram</a>
-  </div>
-  <a href="index.html" style="background:#1E4D2B;color:#fff;padding:14px 36px;font-family:'Poppins',sans-serif;border-radius:5px;text-decoration:none;font-size:1.11em;">Go to Homepage</a>
-							</div>
-<!-- End 404 branding -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end error section -->
-		<!-- logo carousel -->
-		<div class="logo-carousel-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="logo-carousel-inner">
-							<div class="single-logo-item">
-								<img src="assets/img/company-logos/1.png" alt="Company Logo 1">
-							</div>
-							<div class="single-logo-item">
-								<img src="assets/img/company-logos/2.png" alt="Company Logo 2">
-							</div>
-							<div class="single-logo-item">
-								<img src="assets/img/company-logos/3.png" alt="Company Logo 3">
-							</div>
-							<div class="single-logo-item">
-								<img src="assets/img/company-logos/4.png" alt="Company Logo 4">
-							</div>
-							<div class="single-logo-item">
-								<img src="assets/img/company-logos/5.png" alt="Company Logo 5">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end logo carousel -->
-		
-		<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-          <h2 class="widget-title">About Taaibosch Organics</h2>
-          <p>Taaibosch Organics empowers wellness through South African botanicals and alkaline herbs. Pure, organic, and ethically sourced. Online only – no physical store.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-            <li>Email: <a href="mailto:taaiboschorganics@gmail.com">taaiboschorganics@gmail.com</a></li>
-            <li>WhatsApp: <a href="https://wa.me/27645022066" target="_blank" rel="noopener noreferrer">+27 64 502 2066</a></li>
-            <li>Business Hours: Mon–Fri 9am–5pm (SAST)</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-          <h2 class="widget-title">Quick Links</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="delivery-policy.html">Delivery Policy</a></li>
-							<li><a href="contact.html">Contact</a></li>
-            <li><a href="#" title="Coming soon">Privacy Policy</a></li>
-            <li><a href="#" title="Coming soon">Terms &amp; Conditions</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-          <p>Get wellness news and exclusive offers (unsubscribe anytime)</p>
-          <form id="newsletter-form" action="#" method="post" novalidate>
-            <input type="email" name="email" placeholder="Email" required>
-							<button type="submit" aria-label="Subscribe to newsletter"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-    <div class="row mt-3">
-      <div class="col-12">
-        <div class="footer-disclaimer" style="font-size: 0.95em; color: #eee; opacity:0.8; margin-top: 24px;">
-          <p>All information provided is for informational purposes only and is not intended as medical advice. No products are intended to diagnose, treat, cure, or prevent any disease. Always consult a healthcare professional for medical advice.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-<!-- end footer -->
-<!-- copyright -->
-<div class="copyright">
-  <div class="container text-center">
-    <p>© 2025 Taaibosch Organics. All rights reserved.</p>
-  </div>
-</div>
-	<!-- end copyright -->
-	
-	<!-- jquery -->
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
-	<!-- bootstrap -->
-	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-	<!-- count down -->
-	<script src="assets/js/jquery.countdown.js"></script>
-	<!-- isotope -->
-	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-	<!-- waypoints -->
-	<script src="assets/js/waypoints.js"></script>
-	<!-- owl carousel -->
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<!-- mean menu -->
-	<script src="assets/js/jquery.meanmenu.min.js"></script>
-	<!-- sticker js -->
-	<script src="assets/js/sticker.js"></script>
-	<!-- main js -->
-	<script src="assets/js/main.js"></script>
-	
-	</body>
+  </main>
+  <footer id="site-footer" class="mt-20"></footer>
+  <script type="module" src="/modules/navigation/nav.js"></script>
+  <script type="module" src="/modules/footer/footer.js"></script>
+</body>
 </html>

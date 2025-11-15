@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Kenneth Miller",
+    "text": "Fantastic products. Great advice. Excellent service. Five stars is to little for this business.",
+    "rating": 5,
+    "date": "2025-06-12",
+    "avatar": "/assets/img/avaters/avatar1.png"
+  },
+  {
+    "name": "Tezna Abrahams",
+    "text": "I can't say enough great things about Mo's Seasmoss! Every product I've tried has delivered real results.",
+    "rating": 5,
+    "date": "2025-05-10",
+    "avatar": "/assets/img/avaters/avatar2.png"
+  },
+  {
+    "name": "Peter King",
+    "text": "Another testimony. Mo's seasmoss product work like a bomb. My liver function was off the charts and now is normal!",
+    "rating": 5,
+    "date": "2025-08-03",
+    "avatar": "/assets/img/avaters/avatar3.png"
+  },
+  {
+    "name": "Shiraz Williams",
+    "text": "If you are looking for quality with great service, Mo's is the place you should visit!",
+    "rating": 5,
+    "date": "2025-04-18",
+    "avatar": "/assets/img/avaters/avatar1.png"
+  }
+]
